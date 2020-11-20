@@ -3,13 +3,28 @@ console.log("Hello World");
 window.TrelloPowerUp.initialize({
   "card-badges": function (t, opts) {
     // return an array of card badges for the given card
-    return t.card("all").then(function (card) {
+    return t.card("coordinates").then(function (card) {
       console.log(card);
-      return [
-        {
-          text: card.idShort,
-        },
-      ];
+      if (card.coordinates) {
+        // load weather data if there is a location
+        const { latitude, longitute } = card.coordinates;
+
+        fetch(
+          `api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitute}&appid=%%APP_ID%%`
+        )
+          .then((response) => response.json())
+          .then(function (weatherData) {
+            return [
+              {
+                text: weatherData.main.temp.toString(),
+              },
+              {
+                text: weatherData.wind.speed.toString(),
+              },
+            ];
+          });
+      }
+      return [];
     });
   },
 });
