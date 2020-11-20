@@ -3,7 +3,7 @@ console.log("Hello World");
 window.TrelloPowerUp.initialize({
   "card-badges": function (t, opts) {
     // return an array of card badges for the given card
-    return t.card("coordinates").then(function (card) {
+    return t.card("coordinates").then(function(card) {
       console.log(card);
       if (card.coordinates) {
         // load weather data if there is a location
@@ -14,6 +14,8 @@ window.TrelloPowerUp.initialize({
         )
           .then((response) => response.json())
           .then(function (weatherData) {
+            console.log(weatherData.main.temp)
+            console.log(weatherData.wind.speed)
             return [
               {
                 text: weatherData.main.temp.toString(),
