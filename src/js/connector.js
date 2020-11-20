@@ -7,10 +7,10 @@ window.TrelloPowerUp.initialize({
       console.log(card);
       if (card.coordinates) {
         // load weather data if there is a location
-        const { latitude, longitute } = card.coordinates;
+        const { latitude, longitude } = card.coordinates;
 
         fetch(
-          `api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitute}&appid=%%APP_ID%%`
+          `api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=%%APP_ID%%`
         )
           .then((response) => response.json())
           .then(function (weatherData) {
